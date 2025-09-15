@@ -1,6 +1,6 @@
 <h1>ExpNo 1 :Developing AI Agent with PEAS Description</h1>
-<h3>Name: Saravanan N</h3>
-<h3>Register Number/Staff Id: TSML006</h3>
+<h3>Name: D.B.V. SAI GANESH</h3>
+<h3>Register Number: 212223240025</h3>
 
 
 <h3>AIM:</h3>
@@ -42,8 +42,7 @@
 <p>Measure the performance parameters: For each treatment performance incremented, for each movement performance decremented</p>
 
 
-<h4>Developed By: D.B.V.SAI GANESH</h4>
-<h4>Register Number: 212223240025</h4>
+
 <h3>Program</h3>
 
 ```python
