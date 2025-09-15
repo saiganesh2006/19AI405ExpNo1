@@ -48,69 +48,68 @@
 ```python
 import random
 
-class VacuumCleanerAgent:
-    def __init__(self):  # Initialize the agent's state (location and dirt status)
-        self.location = "A"  # Initial location (can be "A" or "B")
-        self.dirt_status = {
-            "A": True,
-            "B": True,
-        }  # Initial dirt status (False means no dirt)
-        self.performance = 0
+class MedicinePrescribingAgent:
+    def __init__(self):
+        self.location = "Room1"  # Initial room location
+        self.patient_temperature = { "Room1": random.uniform(97, 100),
+                                     "Room2": random.uniform(97, 100) }
+        self.performance = 0  # Initial performance measure
 
-    def move_left(self):  # Move the agent to the left if possible
-        if self.location == "B":
-            self.location = "A"
+    def move_to_room1(self):
+        if self.location != "Room1":
+            self.location = "Room1"  # Move to Room1
 
-    def move_right(self):  # Move the agent to the right if possible
-        if self.location == "A":
-            self.location = "B"
+    def move_to_room2(self):
+        if self.location != "Room2":
+            self.location = "Room2"  # Move to Room2
 
-    def suck_dirt(self):  # Suck dirt in the current location if there is dirt
-        if self.dirt_status[self.location]:
-            self.dirt_status[self.location] = False
-            print(f"Sucked dirt in location {self.location}")
+    def prescribe_medicine(self):
+        temp = self.patient_temperature[self.location]
+        if temp > 98.5:  # Check if patient is unhealthy
+            print(f"Prescribed medicine in {self.location} (Temp: {temp:.1f})")
+            self.performance += 10  # Increment performance for treating
+            self.patient_temperature[self.location] = 98.0  # Normalize temperature
+        else:
+            print(f"No treatment needed in {self.location} (Temp: {temp:.1f})")
 
-    def do_nothing(self):  # Do nothing
-        pass
-
-    def perform_action(self, action):  # Perform the specified action
-        if action == "left":
-            self.performance = self.performance - 1
-            self.move_left()
-        elif action == "right":
-            self.performance = self.performance - 1
-            self.move_right()
-        elif action == "suck":
-            self.performance = self.performance + 10
-            self.suck_dirt()
-        elif action == "nothing":
-            self.do_nothing()
+    def perform_action(self, action):
+        if action == "move_room1":
+            if self.location != "Room1":
+                self.performance -= 1  # Penalize movement
+            self.move_to_room1()
+        elif action == "move_room2":
+            if self.location != "Room2":
+                self.performance -= 1  # Penalize movement
+            self.move_to_room2()
+        elif action == "treat":
+            self.prescribe_medicine()
         else:
             print("Invalid action")
 
-    def print_status(self):  # Print the current status of the agent
-        print(f"Location: {self.location}, Dirt Status: {self.dirt_status}, ", end="")
-        print(f"Perfomance Measure: {self.performance}")
+    def print_status(self):
+        print(f"Location: {self.location}, Temperatures: {self.patient_temperature}, Performance: {self.performance}")
 
 
 # Example usage:
-agent = VacuumCleanerAgent()
-# Move the agent, suck dirt, and do nothing
-agent.perform_action("left")
+agent = MedicinePrescribingAgent()
+
+# Treat patients and move between rooms
+agent.perform_action("treat")
 agent.print_status()
-agent.perform_action("suck")
+agent.perform_action("move_room2")
 agent.print_status()
-agent.perform_action("right")
+agent.perform_action("treat")
 agent.print_status()
-agent.perform_action("suck")
+agent.perform_action("move_room1")
 agent.print_status()
-agent.perform_action("nothing")
+agent.perform_action("treat")
 agent.print_status()
+
 ```
 
 ## Output:
 
-<img width="776" height="174" alt="image" src="https://github.com/user-attachments/assets/d592ad25-ad12-4778-88c9-4b8213d84968" />
+<img width="934" height="199" alt="image" src="https://github.com/user-attachments/assets/cea1992d-0fc5-4c1a-9dcb-155e34f9e83f" />
 
 
 ## Result:
